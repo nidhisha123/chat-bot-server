@@ -1,0 +1,76 @@
+{% load templatethelper %}
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="{% static 'chatbot_tutorial/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'chatbot_tutorial/favicon.ico' %}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{% static 'chatbot_tutorial/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'chatbot_tutorial/css/chat.css' %}">
+   
+    <link href="{% static 'chatbot_tutorial/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+        <div class="container-fluid my-2">
+          <div class="navbar-header">
+            <span class="navbar-brand">{% trans 'CHAT BOT' %}</span>
+          </div>
+          {% if request.user.is_superuser %}
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="{% url 'admin:index' %}">{% trans 'Back to Admin Dashbord' %}</a></li>
+          </ul>
+          {% endif %}
+        </div><!--/.container-fluid -->
+      </nav>
+      <div class="jumbotron">
+        <h4 class="text-center">{% trans label %}</h4>
+        <table class="table">
+          <thead>
+              <tr>
+                {% if headers %}
+                  <th>#</th>
+                  {% for key,val in headers.items %}
+                    <th>{% trans val %}</th>
+                  {% endfor %}
+                {% endif %}
+              </tr>
+          </thead>
+          <tbody>
+            {% if not object_list %}
+              <tr class="no-data text-center">
+                <td colspan="{{headers|length|add:1}}">
+                  <span class="p-2">{% trans 'No Records Found.' %}</span>
+                </td>
+              </tr>
+            {% else %}
+              {% for order in object_list %}
+                <tr>
+                  <td class="td-italics">{{ forloop.counter }}</td>
+                  {% for key,val in headers.items %}
+                  {% if key in style_title %}
+                    <td>{{ order|getattribute:key|title }}</td>
+                  {% else %}
+                    <td>{{ order|getattribute:key }}</td>
+                  {% endif %}
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+        <div class="text-center">
+          {% include 'chat_report/pagination.html' %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

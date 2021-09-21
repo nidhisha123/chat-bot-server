@@ -7,8 +7,7 @@ from django.utils.decorators import method_decorator
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
-
-def chat(request):
+def chat(request, *args, **kwargs):
     context = {}
     return render(request, 'chatbot_tutorial/chatbot.html', context)
 

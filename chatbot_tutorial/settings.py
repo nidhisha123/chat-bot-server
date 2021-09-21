@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    'chatbot_tutorial'
+    'chatbot_tutorial',
+    'chat_report'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'chatbot_tutorial.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(os.path.abspath(os.path.dirname(__file__)),'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,8 +74,8 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = 'chatbot_tutorial.routing.application'
 WSGI_APPLICATION = 'chatbot_tutorial.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -124,11 +125,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 STATIC_URL = '/static/'
 SITE_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_ROOT = os.path.join(SITE_ROOT, "bot_static")
+STATIC_ROOT = os.path.join(SITE_ROOT, "static")
 
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "asgiref.inmemory.ChannelLayer",
+#         "ROUTING": "chatbot_tutorial.routing.channel_routing",
+#     },
+# }
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "asgiref.inmemory.ChannelLayer",
-        "ROUTING": "chatbot_tutorial.routing.channel_routing",
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
     },
 }

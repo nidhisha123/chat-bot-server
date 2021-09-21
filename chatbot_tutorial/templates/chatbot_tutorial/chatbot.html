@@ -28,7 +28,6 @@
             <div class="container-fluid" id="body-container" style="border-bottom: #eee 1px solid;">
                
                 <div  id="sub-body-container">
-                    
                     <div  id="messages-container">
                         
                     </div>
@@ -43,13 +42,18 @@
                     
                     <div class="row" id="send-box">
                         
-                        <div id="messageToSend" contenteditable="true" class="pull-left" data-ph="Type your message..."></div>
+                        <!-- <div id="messageToSend" contenteditable="true" class="pull-left" data-ph="Type your message..."></div>
                         
 
                         <div class="pull-right send-button-div">
                             <button  id="messageSendButton" type="button" onclick="sendTextMessage()">
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
                             </button>  
+                        </div> -->
+                        <div class="jokes-button text-center">
+                            <button type="button" attr-type="stupid">Stupid</button>
+                            <button type="button" attr-type="fat">Fat</button>
+                            <button type="button" attr-type="dumb">Dumb</button>
                         </div>
 
                     </div>
@@ -127,7 +131,7 @@
             var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 
             // Calls the websocket connect channel
-            var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chat/stream/test-chat");
+            var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + '/chat/stream/');
 
 
             $("#messageToSend").keypress(function (e) {
@@ -148,6 +152,15 @@
                 message = {}
                 message.command= 'start'
                 chatsock.send(JSON.stringify(message)); // START TALKING!
+
+                $('.jokes-button button').click(function(e){
+                    message = {}
+                    message.command = 'send'
+                    message.text = $(this).attr('attr-type')
+                    message.joke_text = $(this).attr('attr-type')
+                    chatsock.send(JSON.stringify(message))
+                })
+
             }
             chatsock.onmessage = function(message){
                 processAndDisplayChatMessage(message);

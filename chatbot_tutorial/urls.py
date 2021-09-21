@@ -16,8 +16,16 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from .views import chat
+from django.conf.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-	url(r'^chat/$', chat, name='chat'),
-    url(r'^admin/', admin.site.urls)
+    url(r'^chat/$', chat, name='chat'),
+    url(r'^admin/', admin.site.urls),
+    url(r'^'+'', include('chat_report.urls'))
+    # include("chatbot_tutorial.sub_routing.websocket_routing"),
+    # include("chatbot_tutorial.sub_routing.custom_routing"),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
