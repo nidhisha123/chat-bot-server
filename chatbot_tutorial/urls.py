@@ -15,15 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from .views import chat
+from .views import chat, logout_user
 from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^chat/$', chat, name='chat'),
     url(r'^admin/', admin.site.urls),
-    url(r'^'+'', include('chat_report.urls'))
+    url(r'^'+'', include('chat_report.urls')),
+    url(r'^login/', auth_views.LoginView.as_view(template_name='chatbot_tutorial/login.html'),name='login'),
+    url(r'^logout/$', logout_user,name='logout'),
     # include("chatbot_tutorial.sub_routing.websocket_routing"),
     # include("chatbot_tutorial.sub_routing.custom_routing"),
 ]

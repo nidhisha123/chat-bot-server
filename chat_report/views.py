@@ -24,7 +24,6 @@ class JokesCount(ListView):
 		context['current_tabs'] = 'jokes_count'
 		return context
 
-@method_decorator(permission_required('chat_report.view_chatcunsumerjokescounts'), name='dispatch')
 @method_decorator(login_required, name='dispatch')
 class ConsumerJokesCount(ListView):
 	model = ChatCunsumerJokesCounts
@@ -41,3 +40,9 @@ class ConsumerJokesCount(ListView):
 		context['label'] = 'Consumer Jokes Count'
 		context['style_title'] = {'joke'}
 		return context
+
+	def get_queryset(self):
+		filter_args = {}
+		if not self.request.user.is_staff:
+			filter_args['user'] = self.request.user.username
+		return super().get_queryset().filter(**filter_args).order_by('-pk')

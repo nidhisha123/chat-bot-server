@@ -6,6 +6,9 @@ import random
 from django.utils.decorators import method_decorator
 from django.http.response import HttpResponse
 from django.shortcuts import render
+from django.contrib.auth import logout
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 def chat(request, *args, **kwargs):
     context = {}
@@ -40,4 +43,9 @@ def respond_to_websockets(message):
         result_message['text'] = "I don't know any responses for that. If you're interested in yo mama jokes tell me fat, stupid or dumb."
 
     return result_message
-    
+
+
+def logout_user(request):
+     logout(request)
+     response = HttpResponseRedirect(reverse('login'))
+     return response

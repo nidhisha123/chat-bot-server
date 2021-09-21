@@ -37,9 +37,18 @@ You should now be able to go to localhost:8000/chat/ and chat with the bot
 Create superuser to view custom views (Joke's button clicks count and user wise clicks count)
 Add required permissions
 
-## Jokes Count Table
+## Jokes count report
 
-- Login to the site for view the joke's click count report
+- Login to the website
 - You can see the total number of the funny button clicks on this URL - localhost:8000/jokes-count/
-- You can also access this link from admin panel 
+- It is an admin view
+
+## User wise jokes count report
+
+- Login to the website
+- You can see the total number of the funny button clicks based on users on this URL - localhost:8000/jokes-count/
+- user can see their total clicks on each jokes ( User login URL : with localhost:8000/login. logout :localhost:8000/logout)
+
+- Admin can also access these two link from admin panel 
+
 ![Test Image 1](Screenshot-1.png)

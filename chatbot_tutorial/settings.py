@@ -68,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'chat_report.context_processors.global_settings',
             ],
             'debug': True
         },
@@ -141,3 +142,6 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+BRAND_NAME = 'CHAT BOT'
+LOGIN_REDIRECT_URL = '/chat/'
