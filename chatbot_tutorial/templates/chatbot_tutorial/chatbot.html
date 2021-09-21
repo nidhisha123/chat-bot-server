@@ -154,6 +154,7 @@
                 chatsock.send(JSON.stringify(message)); // START TALKING!
 
                 $('.jokes-button button').click(function(e){
+                    e.preventDefault()
                     message = {}
                     message.command = 'send'
                     message.text = $(this).attr('attr-type')
