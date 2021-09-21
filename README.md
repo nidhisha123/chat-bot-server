@@ -46,9 +46,10 @@ Add required permissions
 ## User wise jokes count report
 
 - Login to the website
-- You can see the total number of the funny button clicks based on users on this URL - localhost:8000/jokes-count/
+- You can see the total number of the funny button clicks based on users on this URL - localhost:8000/consumer-jokes-count/
 - user can see their total clicks on each jokes ( User login URL -  localhost:8000/login. logout URL - localhost:8000/logout)
 
+## Additional Data
 - Admin can also access these two link from admin panel 
 
 ![Test Image 1](Screenshot-1.png)

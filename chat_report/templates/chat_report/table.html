@@ -28,6 +28,10 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="{% url 'admin:index' %}">{% trans 'Back to Admin Dashbord' %}</a></li>
           </ul>
+          {% else %}
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
+            </ul>
           {% endif %}
         </div><!--/.container-fluid -->
       </nav>
